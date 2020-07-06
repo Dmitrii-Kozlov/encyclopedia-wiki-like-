@@ -25,6 +25,12 @@ def index(request):
     })
 
 def page(request, name):
+    if request.method == 'POST':
+        content = util.get_entry(name)
+        return render(request, "encyclopedia/edit_page.html", {
+            "title": name,
+            "content": content
+        })
     for x in util.list_entries():
         if name.lower() == x.lower():
             name = x
@@ -65,3 +71,10 @@ def create_page(request):
     return render(request, "encyclopedia/create_page.html", {
         "form": NewTaskForm()
     })
+
+def save_page(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        text = request.POST.get('text')
+        util.save_entry(title,text)
+        return HttpResponseRedirect(reverse("page", args=(title,)))
