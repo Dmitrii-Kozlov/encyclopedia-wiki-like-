@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Found pages
+{% endblock %}
+
+{% block body %}
+    <h3>Pages have founded</h3>
+
+    <ul>
+        {% for entry in entries %}
+            <li><a href="{% url 'page' entry %}"> {{ entry }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
