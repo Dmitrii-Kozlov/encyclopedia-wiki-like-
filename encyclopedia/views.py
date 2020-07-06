@@ -1,3 +1,5 @@
+import random
+
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
@@ -44,6 +46,9 @@ def found_page(request):
             return render(request, "encyclopedia/found_pages.html", {
                 "entries": pages
             })
+    else:
+        title = random.choice(util.list_entries())
+        return HttpResponseRedirect(reverse("page", args=(title,)))
 
 def create_page(request):
     if request.method == 'POST':
