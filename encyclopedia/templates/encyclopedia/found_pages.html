@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Pages have founded</h3>
-
+    <h3>Pages have found</h3>
     <ul>
         {% for entry in entries %}
             <li><a href="{% url 'page' entry %}"> {{ entry }}</a></li>
+        {% empty %}
+            <li>No pages found</li>
         {% endfor %}
     </ul>
-
 {% endblock %}
