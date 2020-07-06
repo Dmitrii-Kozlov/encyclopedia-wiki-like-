@@ -34,9 +34,9 @@ def page(request, name):
     for x in util.list_entries():
         if name.lower() == x.lower():
             name = x
-    page = markdown2.markdown( util.get_entry(name))
-    if not page:
+    if not util.get_entry(name):
         raise Http404("Page does not exist")
+    page = markdown2.markdown( util.get_entry(name))
     return render(request, "encyclopedia/page.html", {
         "title":name,
         "content": page
