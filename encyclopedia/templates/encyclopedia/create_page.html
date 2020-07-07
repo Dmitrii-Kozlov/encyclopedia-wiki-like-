@@ -6,9 +6,17 @@
 
 {% block body %}
     <h2>Create page</h2>
+        <p style="color: red">{{ error }}</p>
         <form action="{% url 'create_page'%}" method="post">
         {% csrf_token%}
-        {{ form }}
-        <input type="submit">
+            <div class="form-group">
+    <label for="inputtitle">Title</label>
+    <input type="text" name="title" class="form-control" id="inputtitle" value={{title}}>
+  </div>
+            <div class="form-group">
+       <label for="exampleFormControlTextarea1">Text</label>
+      <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="15" cols="20">{{text}}</textarea>
+     </div>
+            <button type="submit" class="btn btn-primary mb-2">Save page</button>
     </form>
 {% endblock %}

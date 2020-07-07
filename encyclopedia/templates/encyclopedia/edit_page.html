@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Titile</h2>
     <h3>{{title}}</h3>
     <br>
-    <h2>Text</h2>
     <form action="{% url 'save_page'%}" method="post">
         {% csrf_token%}
         <input hidden name="title" value="{{title}}">
-        <textarea name="text">{{content | safe}}</textarea>
-        <button type="submit">Save page</button>
+                  <div class="form-group">
+      <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="15" cols="20">{{content | safe}}</textarea>
+     </div>
+        <button type="submit" class="btn btn-primary mb-2">Save page</button>
     </form>
 {% endblock %}

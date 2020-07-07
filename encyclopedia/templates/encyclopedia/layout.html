@@ -11,21 +11,26 @@
     <body>
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
+                <img src="{% static 'encyclopedia/Wiki_Logo.png' %}" height="200" width="200">
                 <form action="{% url 'found_page'%}" method="post">
                     {% csrf_token%}
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                    <input type="submit">
+                    <div class="form-group">
+                       <input type="text" name="q" class="form-control" id="searchpage">
+                      <small id="searchhelp" class="form-text text-muted">Search Encyclopedia</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </form>
+                <div style="margin-top: 20px">
                 <div>
-                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'index' %}" class="nav-link">Home</a>
                 </div>
                 <div>
-                    <a href="{% url 'create_page' %}">Create New Page</a>
+                    <a href="{% url 'create_page' %}" class="nav-link">Create New Page</a>
                 </div>
                 <div>
-                    <a href="{% url 'found_page' %}">Random Page</a>
+                    <a href="{% url 'found_page' %}" class="nav-link">Random Page</a>
                 </div>
+                    </div>
                 {% block nav %}
                 {% endblock %}
             </div>

@@ -9,16 +9,6 @@ from django import forms
 from . import util
 
 
-
-def validate_name(name):
-    if name.lower() in [x.lower() for x in util.list_entries()]:
-        raise ValidationError(f'{name} is already exist!')
-class NewTaskForm(forms.Form):
-    title = forms.CharField(label="Title", validators=[validate_name])
-    text = forms.CharField(widget=forms.Textarea(attrs={"rows":15, "cols":20}))
-
-
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -58,19 +48,19 @@ def found_page(request):
 
 def create_page(request):
     if request.method == 'POST':
-        form = NewTaskForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            text = form.cleaned_data["text"]
+        title = request.POST.get("title")
+        text = request.POST.get("text")
+        if title.lower() not in [x.lower() for x in util.list_entries()]:
             util.save_entry(title, text)
             return HttpResponseRedirect(reverse("page", args=(title,)))
         else:
             return render(request, "encyclopedia/create_page.html", {
-                "form": form
+                'error': f'{title} page is already exist!',
+                'title': title,
+                'text':text
             })
-    return render(request, "encyclopedia/create_page.html", {
-        "form": NewTaskForm()
-    })
+    else:
+        return render(request, "encyclopedia/create_page.html")
 
 def save_page(request):
     if request.method == 'POST':
